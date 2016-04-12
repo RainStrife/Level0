@@ -4,7 +4,5 @@
             <form method="POST">{% csrf_token %}
                 <button type="submit" >Удалить</button>
             </form>
-            <form>
-                <input type="button" value="Отмена" onClick='location.href="{% url 'post_list'%}"'>
-            </form>
+            <button type="submit" >Отмена<a href="{% url 'post_list'%}"></a></button>
     {% endblock %}
