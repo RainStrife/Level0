@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_protect
 from .models import Post
 from .forms import PostForm
 
@@ -38,3 +39,13 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+
+@csrf_protect
+def post_delete(request, pk):
+    post = Post.objects.get(pk=pk)
+    if request.method == "POST":
+        post.delete()
+        return redirect('blog.views.post_list')
+    else:
+        return render(request, 'blog/post_delete.html')
